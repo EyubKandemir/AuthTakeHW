@@ -1,0 +1,110 @@
+﻿html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+.bg-container {
+    background-image: url(/images/LoginImage.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.login-container {
+    padding: 20px;
+    border-radius: 20px;
+    width: 346px;
+    height: 390px;
+    position: absolute;
+    top: 16%;
+    right: 16%;
+    background: linear-gradient(180deg, #8FDAFF 0%, #D9F1FD 100%);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    display: grid;
+    place-items: center;
+}
+
+.form-group {
+    border-radius: 20px;
+    opacity: 0.8;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    margin-bottom: 22px;
+    overflow: hidden;
+    height: 53px;
+    width: 300px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    outline: none;
+}
+
+.main-mobile-links {
+    display: flex;
+    align-items: center;
+    margin-top: 551px;
+    position: absolute;
+}
+
+.mobile-links {
+    width: 80.713px;
+    height: 80.713px;
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    margin-right: 5px;
+    display: grid;
+    place-items: center;
+}
+
+form {
+    display: contents;
+}
+
+button {
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    width: 138px;
+    border-radius: 20px;
+    background: #00569D;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    height: 50px;
+}
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+}
+
+.forgot-password {
+    justify-self: start;
+    margin-bottom: 15px;
+    margin-left: 28px;
+}
+
+    .forgot-password a {
+        color: #000;
+        font-family: Roboto;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        text-decoration-line: underline;
+        opacity: 0.5;
+    }

@@ -1,0 +1,184 @@
+﻿@model Web.Models.AddNewSiteModel
+@{
+    string result = "";
+    if (Model.Id.HasValue)
+    {
+        result = Model.Id.Value.ToString();
+    }
+    else
+    {
+        result = "undefined";
+    }
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="~/js/jquery-3.4.1.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .form-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .icon {
+            margin: 10px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+            input[type="text"]:focus {
+                outline: none;
+                border-color: #007BFF;
+            }
+
+            input[type="text"]::placeholder {
+                color: #aaa;
+            }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #0056b3;
+            }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="icon">
+            <img src="/images/username-icon.svg" alt="Username Icon" width="48" height="40" />
+        </div>
+        
+        <input type="text" id="SiteNameEdit" required placeholder="Site Adı" />
+        <div class="icon">
+            <img src="/images/password-icon.svg" alt="Username Icon" width="48" height="40" />
+        </div>
+        
+        <input type="text" id="SitePasswordEdit" required placeholder="Şifre" />
+        <button type="submit" onclick="SaveSiteInfo()" >Gönder</button>
+    </div>
+</body>
+</html>
+<script>
+    FillInfos();
+
+    function FillInfos(){
+        $("#SiteNameEdit").val('@Model.SiteName');
+        $("#SitePasswordEdit").val('@Model.Password');
+    }
+
+    function SaveSiteInfo() {
+        var sitename = $("#SiteNameEdit").val();
+        var password = $("#SitePasswordEdit").val();
+        if (sitename == '') {
+            alert("Site adı boş olamaz")
+        }
+        else if (password == '') {
+            alert("Şifre  boş olamaz")
+        }
+        else {
+            if ('@result' == 'undefined') {
+                //insert
+                var data = {
+                    sitename: sitename,
+                    username: '@Model.UserName',
+                    password: password
+                };
+                var url = '/AddNewSite/InsertSiteInfo';
+                $.ajax({
+                    url:url,
+                    data:data,
+                    success: function (data) {
+                        if (data.success) {
+                            alert(data.message)
+                            RefreshGrid();
+                            window.location.href='/Home/Index?username=@Model.UserName';
+                        } else {
+                            alert(data.message);
+                        }
+                    },
+                    error: function (data) {
+
+                    }
+                });
+
+            } else {
+                console.log("password : "  + password);
+                //update
+                var data = {
+                    id:@result,
+                    sitename: sitename,
+                    username: '@Model.UserName',
+                    password: password
+                };
+                var url = '/AddNewSite/EditSiteInfo'
+                $.ajax({
+                    url: url,
+                    data: data,
+                    success: function (data) {
+                        if (data.success) {
+                            alert(data.message)
+                            RefreshGrid();
+                            window.location.href = '/Home/Index?username=@Model.UserName';
+                        } else {
+                            alert(data.message);
+                        }
+                    },
+                    error: function (data) {
+
+                    }
+                });
+            }
+        }
+    }
+    function RefreshGrid() {
+        console.log("RefreshGrid");
+        var data = {
+            username: '@Model.UserName'
+        };
+        var url = '/Home/Index';
+
+        $.ajax({
+            type: "GET",
+            url: url,
+            data: data,
+            success: function (data) {
+                $("#SiteTableDivId").html(data);
+            },
+            error: function (data) {
+
+                alert(data)
+            }
+        });
+    }
+</script>

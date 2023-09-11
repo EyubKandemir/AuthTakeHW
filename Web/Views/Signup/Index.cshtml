@@ -1,0 +1,72 @@
+﻿@{
+	TempData["SuccessMessage"] = "Kullanıcı başarıyla eklendi.";
+}
+<head>
+	<link href="/css/loginpage.css" rel="stylesheet" />
+</head>
+<body>
+	<div class="bg-container">
+		<div class="login-container" style="height:600px;">
+			<form asp-controller="Signup" asp-action="Signup" method="post">
+				<img src="/images/UserImage.png" style="margin-bottom: 20px;" />
+
+				<div class="form-group">
+					<div class="icon">
+						<img src="/images/username-icon.svg" alt="Username Icon" width="48" height="40" />
+					</div>
+					<div class="icon">
+						<img src="/images/ayrac.svg" alt="Ayrac Icon" width="auto" height="30" />
+					</div>
+					<input type="text" id="Username" name="Username" required placeholder="Kullanıcı Adı" />
+				</div>
+
+				<div class="form-group">
+					<div class="icon">
+						<img src="/images/username-icon.svg" alt="Username Icon" width="48" height="40" />
+					</div>
+					<div class="icon">
+						<img src="/images/ayrac.svg" alt="Ayrac Icon" width="auto" height="30" />
+					</div>
+					<input type="text" id="Email" name="Email" required placeholder="Email" />
+				</div>
+
+				<div class="form-group">
+					<div class="icon">
+						<img src="/images/username-icon.svg" alt="Username Icon" width="48" height="40" />
+					</div>
+					<div class="icon">
+						<img src="/images/ayrac.svg" alt="Ayrac Icon" width="auto" height="30" />
+					</div>
+					<input type="text" id="Name" name="Name" required placeholder="İsim" />
+				</div>
+
+				<div class="form-group">
+					<div class="icon">
+						<img src="/images/username-icon.svg" alt="Username Icon" width="48" height="40" />
+					</div>
+					<div class="icon">
+						<img src="/images/ayrac.svg" alt="Ayrac Icon" width="auto" height="30" />
+					</div>
+					<input type="text" id="Surname" name="Surname" required placeholder="Soyisim" />
+				</div>
+
+				<div class="form-group">
+					<div class="icon">
+						<img src="/images/password-icon.svg" alt="Password Icon" width="48" height="40" />
+					</div>
+					<div class="icon">
+						<img src="/images/ayrac.svg" alt="Ayrac Icon" width="auto" height="30" />
+					</div>
+					<input type="password" id="Password" name="Password" required placeholder="Şifre" />
+				</div>
+
+				<div style="align-items:center">
+					<button type="submit">KAYDET</button>
+					<a style="cursor:pointer" onclick="window.location.href='/Login/Index'">Login'e dön</a>
+				</div>
+			
+			</form>
+
+		</div>
+	</div>
+</body>

@@ -1,0 +1,65 @@
+﻿@model Web.Models.LoginModel
+
+<style>
+	.myButton {
+		background-color: #4CAF50; /* Green */
+		border: none;
+		color: white;
+		padding: 15px 32px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 16px;
+	}
+</style>
+<html>
+<head>
+	<link href="/css/loginpage.css" rel="stylesheet" />
+	<script src="~/js/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+	<div class="bg-container">
+		<div class="login-container">
+			<form asp-controller="Login" asp-action="Login" method="post">
+				<img src="/images/UserImage.png" style="margin-bottom: 20px;" />
+
+				<div class="form-group">
+					<div class="icon">
+						<img src="/images/username-icon.svg" alt="Username Icon" width="48" height="40" />
+					</div>
+					<div class="icon">
+						<img src="/images/ayrac.svg" alt="Ayrac Icon" width="auto" height="30" />
+					</div>
+					<input type="text" id="Username" name="Username" required placeholder="Kullanıcı Adı" />
+				</div>
+
+				<div class="form-group">
+					<div class="icon">
+						<img src="/images/password-icon.svg" alt="Password Icon" width="48" height="40" />
+					</div>
+					<div class="icon">
+						<img src="/images/ayrac.svg" alt="Ayrac Icon" width="auto" height="30" />
+					</div>
+					<input type="password" id="Password" name="Password" required placeholder="Şifre" />
+				</div>
+
+				<div style="align-items:center">
+					<button type="submit">GİRİŞ</button>
+					<div class="myButton" style="cursor:pointer" onclick="window.location.href='/Signup/Index'">
+						<a >Kayıt Ol!</a>
+					</div>
+
+				</div>
+
+				@if (!ViewData.ModelState.IsValid)
+				{
+					<h5 class="error-message">@Html.ValidationMessage("ErrorMessage")</h5>
+				}
+
+			</form>
+
+		</div>
+	</div>
+</body>
+</html>
+

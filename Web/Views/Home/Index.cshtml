@@ -1,0 +1,107 @@
+﻿@model Web.Models.HomeModel
+
+@{
+	ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Siteler Sayfası</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="~/js/jquery-3.4.1.min.js"></script>
+	<script src="~/js/site.js"></script>
+	<style>
+		.table-striped > tbody > tr:nth-child(odd) > td,
+		.table-striped > tbody > tr:nth-child(odd) > th {
+			background-color: #f9f9f9;
+		}
+	</style>
+</head>
+<body>
+	<div id="SiteTableDivId">
+		<h1>Admin Sayfası</h1>
+		<button title="Site Ekle" style="padding: 2px; margin: 3px 3px 3px 3px; width: 200px;" onclick="window.location.href='/AddNewSite/Index?username=@Model.Username';">
+			<img style="padding: inherit" src="~/images/add.svg" /> Yeni Site Ekle
+		</button>
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Site ID</th>
+					<th>Site Adı</th>
+					<th>Kullanıcı Adı</th>
+					<th>Şifre</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var site in Model.Sites)
+				{
+					<tr>
+						<td>@site.Id</td>
+						<td>@site.SiteName</td>
+						<td>@site.UserName</td>
+						<td>@site.Password</td>
+						<td>
+							<img style="cursor:pointer" style="padding: inherit" src="~/images/edit.svg" onclick="window.location.href='/AddNewSite/Index?username=@Model.Username&id=@site.Id'" title="Düzenle" />|
+							<img style="cursor:pointer" style="padding: inherit" src="~/images/delete.svg" onclick="DeleteSiteClick(@site.Id)" title="Sil" />
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+		<div class="pagination">
+			@for (int i = 1; i <= Model.Sites.Count / 10; i++)
+			{
+				<a asp-action="Index" asp-route-page="@i">@i</a>
+			}
+		</div>
+	</div>
+
+</body>
+</html>
+
+<script>
+
+
+	function DeleteSiteClick(id) {
+		var url = '/Home/Delete';
+		var data = { id: id };
+		$.ajax({
+			data: data,
+			url: url,
+			success: function (data) {
+				if (data.success) {
+					RefreshGrid();
+				} else {
+					alert(data.message);
+				}
+			},
+			error: function (data) {
+				alert(data.message);
+			}
+		});
+	}
+
+	function RefreshGrid() {
+		console.log("RefreshGrid");
+		var data = {
+			username: '@Model.Username'
+		};
+		var url = '/Home/Index';
+
+		$.ajax({
+			type: "GET",
+			url: url,
+			data: data,
+			success: function (data) {
+				$("#SiteTableDivId").html(data);
+			},
+			error: function (data) {
+
+				alert(data)
+			}
+		});
+	}
+</script>
